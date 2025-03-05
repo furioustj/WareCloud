@@ -44,11 +44,11 @@ const MobileNavigation = ({
     return (
         <header className="mobile-header">
           <Image
-            src="/assets/icons/logo-full-brand.svg"
+            src="/warecloud-logo.png"
             alt="logo"
-            width={120}
-            height={52}
-            className="h-auto"
+            width={170}
+            height={40}
+            className="lg:block"
           />
     
           <Sheet open={open} onOpenChange={setOpen}>

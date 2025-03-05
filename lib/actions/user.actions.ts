@@ -58,7 +58,7 @@ export const createAccount = async ({
       {
         fullName,
         email,
-        avatar: "https://avatar.iran.liara.run/public/15",
+        avatar: "/images/avatar.png",
         accountId,
       },
     );
