@@ -1,0 +1,7 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    },
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.cursorStyle": "line-thin"
+}
