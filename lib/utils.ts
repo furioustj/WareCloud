@@ -80,35 +80,32 @@ export const formatDateTime = (isoString: string | null | undefined) => {
 
   const date = new Date(isoString);
 
-  // Get hours and adjust for 12-hour format
-  let hours = date.getHours();
-  const minutes = date.getMinutes();
-  const period = hours >= 12 ? "PM" : "AM";
-
-  // Convert hours to 12-hour format
-  hours = hours % 12 || 12;
-
-  // Format the time and date parts
-  const time = `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
-  const day = date.getDate();
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const month = monthNames[date.getMonth()];
-
-  return `${time}, ${day} ${month}`;
-};
+  function formatDate(date: Date): string {
+    // Get hours and adjust for 12-hour format
+    let hours: number = date.getHours();
+    const minutes: number = date.getMinutes();
+    const period: string = hours >= 12 ? "pm" : "am";
+  
+    // Convert hours to 12-hour format
+    hours = hours % 12 || 12;
+  
+    // Format the time and date parts
+    const time: string = `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
+    const day: number = date.getDate();
+    const monthNames: string[] = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    const month: string = monthNames[date.getMonth()];
+  
+    return `${time}, ${day} ${month}`;
+  }
+  
+  // Example usage
+  const now = new Date();
+    console.log(formatDate(now)); // Output: "2:05 pm, 8 Mar"
+  }
+  
 
 export const getFileIcon = (
   extension: string | undefined,
