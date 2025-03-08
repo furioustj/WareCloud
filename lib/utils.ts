@@ -75,21 +75,19 @@ export const getFileType = (fileName: string) => {
   return { type: "other", extension };
 };
 
-export const formatDateTime = (isoString: string | null | undefined) => {
+export const formatDateTime = (isoString: string | null | undefined): string => {
   if (!isoString) return "—";
 
   const date = new Date(isoString);
+  if (isNaN(date.getTime())) return "Invalid Date"; // Handle invalid date cases
 
   function formatDate(date: Date): string {
-    // Get hours and adjust for 12-hour format
     let hours: number = date.getHours();
     const minutes: number = date.getMinutes();
     const period: string = hours >= 12 ? "pm" : "am";
-  
-    // Convert hours to 12-hour format
+
     hours = hours % 12 || 12;
-  
-    // Format the time and date parts
+
     const time: string = `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
     const day: number = date.getDate();
     const monthNames: string[] = [
@@ -97,14 +95,20 @@ export const formatDateTime = (isoString: string | null | undefined) => {
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
     const month: string = monthNames[date.getMonth()];
-  
+
     return `${time}, ${day} ${month}`;
   }
-  
-  // Example usage
-  const now = new Date();
-    console.log(formatDate(now)); // Output: "2:05 pm, 8 Mar"
-  }
+
+  const formattedDate = formatDate(date);
+  console.log(formattedDate); // Make sure the log works
+
+  return formattedDate; // RETURN the formatted string
+};
+
+// Example usage:
+const testDate = "2025-03-08T14:05:00Z";
+console.log(formatDateTime(testDate)); // Example: "7:35 pm, 8 Mar" (based on your timezone)
+
   
 
 export const getFileIcon = (
