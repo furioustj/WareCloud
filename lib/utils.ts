@@ -82,28 +82,34 @@ export const formatDateTime = (isoString: string | null | undefined): string => 
   if (isNaN(date.getTime())) return "Invalid Date"; // Handle invalid date cases
 
   function formatDate(date: Date): string {
-    let hours: number = date.getHours();
-    const minutes: number = date.getMinutes();
+    // Convert to IST (UTC +5:30)
+    const istOffset = 5.5 * 60 * 60 * 1000; // 5.5 hours in milliseconds
+    const istDate = new Date(date.getTime() + istOffset);
+
+    let hours: number = istDate.getUTCHours(); // Get UTC hours, adjusted for IST
+    const minutes: number = istDate.getUTCMinutes(); // Get UTC minutes, adjusted for IST
     const period: string = hours >= 12 ? "pm" : "am";
 
-    hours = hours % 12 || 12;
+    hours = hours % 12 || 12; // Convert to 12-hour format
 
     const time: string = `${hours}:${minutes.toString().padStart(2, "0")} ${period}`;
-    const day: number = date.getDate();
+    const day: number = istDate.getUTCDate();
     const monthNames: string[] = [
       "Jan", "Feb", "Mar", "Apr", "May", "Jun",
       "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
-    const month: string = monthNames[date.getMonth()];
+    const month: string = monthNames[istDate.getUTCMonth()];
 
     return `${time}, ${day} ${month}`;
   }
 
   const formattedDate = formatDate(date);
-  console.log(formattedDate); // Make sure the log works
+  console.log("ISO String:", isoString);
+  console.log("Formatted Date (IST):", formattedDate);
 
-  return formattedDate; // RETURN the formatted string
+  return formattedDate;
 };
+
 
 // Example usage:
 const testDate = "2025-03-08T14:05:00Z";
