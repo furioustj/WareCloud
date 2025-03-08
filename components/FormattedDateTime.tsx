@@ -5,12 +5,12 @@ export const FormattedDateTime = ({
   date,
   className,
 }: {
-  date: string;
+  date: string | Date;
   className?: string;
 }) => {
   return (
     <p className={cn("body-1 text-light-200", className)}>
-      {formatDateTime(date)}
+      {formatDateTime(new Date(date).toISOString())}
     </p>
   );
 };
